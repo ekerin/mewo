@@ -16,9 +16,9 @@ You will need to be running node 6 or later as WeMo makes extensive use of ES6.
 
 ```javascript
 
-const { UPnpBroadcastResponder, UPnpDevice } = require('wemo');
+const { UPnpBroadcastResponder, MeWoDevice } = require('mewo');
 
-class MyUPnpDevice extends UPnpDevice {
+class MyMeWoDevice extends MewoDevice {
   constructor() {
     // Super must be called
     super(...arugments);
@@ -48,7 +48,7 @@ responder.init({
   multicastAddress: '239.11.3.8'
 }).then(() => {
   // Create the new device with a name that will show up in the Alexa app
-  const myDevice = new MyUPnpDevice('my-upnp-device');
+  const myDevice = new MyMeWoDevice('my-upnp-device');
   // Register with the UPnP responder
   responder.registerDevice(myDevice);
 });

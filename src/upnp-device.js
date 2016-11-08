@@ -140,17 +140,24 @@ module.exports = class UPnpDevice {
   /**
    * Starts the HTTP server
    */
-  initServer(address) {
+  initServer(address,port) {
     return new Promise((resolve, reject) => {
-      freeport((err, port) => {
-        this.port = port;
-        this.address = address;
-        this.server = http.createServer(this.incomingRequest.bind(this));
-        this.server.listen(port, address, (err) => {
-          this.log(`Virtual device listening at http://${this.address}:${this.port}`);
-          resolve();
-        });
-      });
+
+      var bind = (err, port) => {
+          this.port = port;
+          this.address = address;
+          this.server = http.createServer(this.incomingRequest.bind(this));
+          this.server.listen(port, address, (err) => {
+            this.log(`Virtual device listening at http://${this.address}:${this.port}`);
+            resolve();
+          });
+        };
+
+      if(typeof(port) === 'undefined'){
+        freeport(bind);
+      }else{
+        bind(null,port);
+      }
     });
   }
 

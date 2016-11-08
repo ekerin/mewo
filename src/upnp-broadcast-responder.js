@@ -80,9 +80,9 @@ module.exports = class UPnpBroadcastResponder {
     });
   }
 
-  registerDevice(device) {
+  registerDevice(device,port) {
     if (device instanceof UPnpDevice) {
-      device.initServer(this.address).then(() => {
+      device.initServer(this.address,port).then(() => {
         this.devices.push(device);
         console.log(`Device ${device.name} [${device.serial}] registered`);
       });
